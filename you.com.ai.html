@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - Engineering Tomorrow's Apps, Today</title>
+    <meta name="description" content="Apex Digital adalah mitra premium dalam pengembangan aplikasi mobile. Kami merancang dan membangun solusi digital yang inovatif, skalabel, dan elegan untuk masa depan bisnis Anda.">
+    
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & GLOBAL STYLES (THEME: MODERN & SOPHISTICATED) --- */
+        :root {
+            --bg-color: #121212;
+            --card-bg-color: #1E1E1E;
+            --primary-accent: #00D9FF;
+            --text-color: #B0BEC5;
+            --heading-color: #FFFFFF;
+            --border-color: #333;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        /* --- REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: var(--primary-accent);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* --- HEADER (GLASSMORPHISM) --- */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-accent);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-accent);
+            transition: width 0.3s ease;
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:hover {
+            color: var(--heading-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--heading-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* --- HERO SECTION (ANIMATED GRADIENT) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--heading-color);
+            padding: 0 20px;
+            background: linear-gradient(-45deg, #121212, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--text-color);
+        }
+
+        /* --- FEATURES & SERVICES CARDS --- */
+        .features-grid, .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .feature-card, .service-card {
+            background: var(--card-bg-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+        .feature-card:hover, .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+        .feature-card .icon, .service-card .icon {
+            font-size: 3rem;
+            color: var(--primary-accent);
+            margin-bottom: 1.5rem;
+        }
+        .feature-card h3, .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .service-card ul li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .service-card ul li::before {
+            content: '→';
+            color: var(--primary-accent);
+            position: absolute;
+            left: 0;
+        }
+
+        /* --- ABOUT US --- */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        .vm-block h3 {
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            margin-bottom: 1rem;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        .value-card {
+            text-align: center;
+        }
+        .value-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-accent);
+            margin-bottom: 0.5rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .team-card {
+            text-align: center;
+        }
+        .team-card img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--card-bg-color);
+            transition: all 0.3s ease;
+        }
+        .team-card:hover img {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+        }
+        .team-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- PORTFOLIO --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .portfolio-item {
+            background: var(--card-bg-color);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+        }
+        .portfolio-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.2);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        .portfolio-item-content {
+            padding: 1.5rem;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .testimonial-slide {
+            display: none;
+            padding: 2rem;
+        }
+        .testimonial-slide.active {
+            display: block;
+        }
+        .testimonial-slide img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary-accent);
+        }
+        .testimonial-slide blockquote {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--heading-color);
+        }
+        .testimonial-slide h4 {
+            font-weight: 700;
+        }
+        .testimonial-slide p {
+            color: var(--text-color);
+        }
+
+        /* --- CONTACT --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--heading-color);
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--heading-color);
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-bottom-color: var(--primary-accent);
+            box-shadow: 0 1px 0 0 var(--primary-accent);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .contact-info {
+            background: var(--card-bg-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .contact-info h3 {
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+        }
+        .contact-info p {
+            margin-bottom: 1rem;
+        }
+        .contact-info i {
+            color: var(--primary-accent);
+            margin-right: 10px;
+        }
+        .map-container {
+            margin-top: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+        }
+
+        /* --- FAQ --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: var(--card-bg-color);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            text-align: left;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            color: var(--heading-color);
+        }
+        .faq-question:hover {
+            background-color: rgba(0, 217, 255, 0.1);
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.5rem;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background: var(--card-bg-color);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 3rem 0 1rem 0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-content h3 {
+            color: var(--primary-accent);
+            margin-bottom: 1rem;
+        }
+        .footer-content ul {
+            list-style: none;
+        }
+        .footer-content ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-content ul li a:hover {
+            color: var(--primary-accent);
+        }
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: var(--primary-accent);
+        }
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            color: var(--text-color);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .features-grid, .services-grid, .portfolio-grid, .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .vm-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--card-bg-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .features-grid, .services-grid, .portfolio-grid, .team-grid, .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =================== HEADER =================== -->
+    <header class="header">
+        <div class="container">
+            <a href="#home" class="logo">Apex<span>Digital</span></a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#services">Layanan</a></li>
+                    <li><a href="#portfolio">Portofolio</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- =================== HERO SECTION =================== -->
+        <section id="home" class="hero">
+            <div class="hero-content reveal">
+                <h1>Engineering Tomorrow's Apps, Today</h1>
+                <p>Apex Digital adalah mitra premium Anda dalam merancang dan membangun solusi mobile yang inovatif, skalabel, dan elegan untuk masa depan bisnis Anda.</p>
+                <a href="#portfolio" class="btn">Lihat Karya Kami</a>
+            </div>
+        </section>
+
+        <!-- =================== FEATURES SECTION =================== -->
+        <section id="features" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Keunggulan Kami</h2>
+                <div class="features-grid">
+                    <div class="feature-card reveal">
+                        <div class="icon"><i class="fas fa-code"></i></div>
+                        <h3>Kode Berkualitas Tinggi</h3>
+                        <p>Kami menulis kode yang bersih, efisien, dan mudah dipelihara untuk memastikan performa aplikasi yang optimal dan skalabilitas jangka panjang.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon"><i class="fas fa-paint-brush"></i></div>
+                        <h3>Desain UI/UX Berkelas</h3>
+                        <p>Setiap aplikasi dirancang dengan pendekatan human-centered, menghasilkan antarmuka yang intuitif, menarik, dan memberikan pengalaman pengguna yang tak terlupakan.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Strategi Berbasis Data</h3>
+                        <p>Keputusan pengembangan kami didasarkan pada analisis data dan riset pasar yang mendalam untuk memastikan produk Anda mencapai sasaran yang tepat.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== ABOUT US SECTION =================== -->
+        <section id="about" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Tentang Apex Digital</h2>
+                <div class="vm-grid">
+                    <div class="vm-block reveal">
+                        <h3>Visi Kami</h3>
+                        <p>Menjadi pemimpin global dalam inovasi pengembangan aplikasi mobile yang mendefinisikan ulang cara industri berinteraksi dengan teknologi.</p>
+                    </div>
+                    <div class="vm-block reveal">
+                        <h3>Misi Kami</h3>
+                        <p>Memberikan solusi digital yang luar biasa bagi klien kami dengan menggabungkan keahlian teknis terdepan, desain yang brilian, dan komitmen terhadap keunggulan.</p>
+                    </div>
+                </div>
+                
+                <h3 style="text-align:center; margin-bottom: 2rem;" class="reveal">Pilar Perusahaan</h3>
+                <div class="values-grid">
+                    <div class="value-card reveal"><div class="icon"><i class="fas fa-rocket"></i></div><h4>Inovasi</h4></div>
+                    <div class="value-card reveal"><div class="icon"><i class="fas fa-gem"></i></div><h4>Kualitas</h4></div>
+                    <div class="value-card reveal"><div class="icon"><i class="fas fa-eye"></i></div><h4>Visi</h4></div>
+                    <div class="value-card reveal"><div class="icon"><i class="fas fa-handshake"></i></div><h4>Integritas</h4></div>
+                </div>
+
+                <h3 style="text-align:center; margin-bottom: 2rem;" class="reveal">Tim Ahli Kami</h3>
+                <div class="team-grid">
+                    <div class="team-card reveal">
+                        <img src="https://i.pravatar.cc/180?img=69" alt="Ceo">
+                        <h4>Reza Airlangga</h4>
+                        <p>Chief Executive Officer</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <img src="https://i.pravatar.cc/180?img=26" alt="Cto">
+                        <h4>Diana Kusuma</h4>
+                        <p>Chief Technology Officer</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <img src="https://i.pravatar.cc/180?img=21" alt="Lead Designer">
+                        <h4>Rizki Pratama</h4>
+                        <p>Head of Design</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== SERVICES SECTION =================== -->
+        <section id="services" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Layanan Premium</h2>
+                <div class="services-grid">
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fab fa-apple"></i></div>
+                        <h3>Pengembangan iOS</h3>
+                        <p>Menciptakan aplikasi native yang memanfaatkan sepenuhnya kekuatan ekosistem Apple.</p>
+                        <ul>
+                            <li>Performa & Keamanan Terbaik</li>
+                            <li>Integrasi dengan Ekosistem Apple</li>
+                            <li>UI yang Sesuai Standar Apple</li>
+                        </ul>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fab fa-android"></i></div>
+                        <h3>Pengembangan Android</h3>
+                        <p>Membangun aplikasi yang kuat dan fleksibel untuk jangkauan pasar global Android.</p>
+                        <ul>
+                            <li>Jangkauan Perangkat Luas</li>
+                            <li>Kustomisasi Tanpa Batas</li>
+                            <li>Integrasi Layanan Google</li>
+                        </ul>
+                    </div>
+                    <div class="service-card reveal">
+                        <div class="icon"><i class="fas fa-layer-group"></i></div>
+                        <h3>Solusi Cross-Platform</h3>
+                        <p>Percepat waktu ke pasar dengan solusi React Native atau Flutter yang efisien.</p>
+                        <ul>
+                            <li>Satu Kodebase, Dua Platform</li>
+                            <li>Pengembangan Cepat & Hemat Biaya</li>
+                            <li>Performa Mendekati Native</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== PORTFOLIO SECTION =================== -->
+        <section id="portfolio" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Portfolio Pilihan</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="FinTech App">
+                        <div class="portfolio-item-content">
+                            <h4>WealthWise - Fintech Platform</h4>
+                            <p>Keuangan & Investasi</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" alt="Health App">
+                        <div class="portfolio-item-content">
+                            <h4>VitalTrack - Health Monitor</h4>
+                            <p>Kesehatan & Fitness</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop" alt="Food Delivery App">
+                        <div class="portfolio-item-content">
+                            <h4>QuickBite - Food Delivery</h4>
+                            <p>Makanan & Minuman</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== TESTIMONIALS SECTION =================== -->
+        <section id="testimonials" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Kepuasan Klien</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial-slide active">
+                        <img src="https://i.pravatar.cc/100?img=3" alt="Client 1">
+                        <blockquote>"Apex Digital tidak hanya mengembangkan aplikasi, mereka membangun solusi bisnis. Profesionalisme dan visi mereka luar biasa."</blockquote>
+                        <h4>Michael Tan</h4>
+                        <p>Managing Partner, Quantum Ventures</p>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://i.pravatar.cc/100?img=23" alt="Client 2">
+                        <blockquote>"Desain yang mereka ciptakan untuk aplikasi kami memukau. Pengalaman pengguna yang luar biasa dan sangat intuitif."</blockquote>
+                        <h4>Lisa Andriani</h4>
+                        <p>Product Manager, ConnectSphere</p>
+                    </div>
+                    <div class="testimonial-slide">
+                        <img src="https://i.pravatar.cc/100?img=51" alt="Client 3">
+                        <blockquote>"Tim yang solid, komunikasi yang transparan, dan hasil yang melebihi ekspektasi. Mitra teknologi terbaik yang pernah kami miliki."</blockquote>
+                        <h4>Hendra Wijaya</h4>
+                        <p>CEO, Nusantara Tech</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== CONTACT SECTION =================== -->
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Mulai Proyek Anda</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-form reveal">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nama Lengkap</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Perusahaan</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Pesan Anda</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Kirim Pesan</button>
+                        </form>
+                    </div>
+                    <div class="contact-info reveal">
+                        <h3>Hubungi Kami</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Apex Tower, Lantai 88, Jl. Sudirman No. 1, Jakarta Pusat</p>
+                        <p><i class="fas fa-envelope"></i> contact@apexdigital.io</p>
+                        <p><i class="fas fa-phone"></i> +62 21 9876 5432</p>
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sMonas!5e0!3m2!1sen!2sid!4v1659041234567!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =================== FOOTER =================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>Apex Digital</h3>
+                    <p>Engineering Tomorrow's Apps, Today.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="#"><i class="fab fa-behance"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3>Navigasi</h3>
+                    <ul>
+                        <li><a href="#about">Tentang Kami</a></li>
+                        <li><a href="#services">Layanan</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#contact">Kontak</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Klien Kami</h3>
+                    <p>Quantum Ventures | ConnectSphere | Nusantara Tech</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Apex Digital. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- MOBILE NAVIGATION ---
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // --- FAQ ACCORDION ---
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) otherItem.classList.remove('active');
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            // --- TESTIMONIAL SLIDER ---
+            const slides = document.querySelectorAll('.testimonial-slide');
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+            }
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+            setInterval(nextSlide, 6000); // Change slide every 6 seconds
+
+            // --- CONTACT FORM ---
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Terima kasih telah menghubungi Apex Digital. Tim kami akan segera merespons pesan Anda.');
+                contactForm.reset();
+            });
+
+            // --- REVEAL ON SCROLL ANIMATION ---
+            const reveals = document.querySelectorAll('.reveal');
+            function handleScrollReveal() {
+                reveals.forEach(element => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    if (elementTop < windowHeight - elementVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', handleScrollReveal);
+            // Trigger on load
+            handleScrollReveal();
+        });
+    </script>
+</body>
+</html>

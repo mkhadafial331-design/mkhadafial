@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Core - Architects of the Digital Frontier</title>
+    <meta name="description" content="Nexus Core adalah studio arsitektur digital. Kami membangun pengalaman imersif dan solusi teknologi yang mendefinisikan masa depan.">
+    
+    <!-- Google Fonts: Orbitron & Exo 2 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & GLOBAL STYLES (THEME: FUTURISTIC & IMMERSIVE) --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --bg-gradient-end: #1a1a2e;
+            --primary-color: #00f5ff;
+            --secondary-color: #7b2ff7;
+            --text-color: #f0f0f0;
+            --text-light: #cccccc;
+            --font-heading: 'Orbitron', sans-serif;
+            --font-body: 'Exo 2', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-padding {
+            padding: 150px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 4rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* --- GLITCH EFFECT --- */
+        .glitch {
+            position: relative;
+            color: var(--text-color);
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-shadow: 0.05em 0 0 var(--primary-color), -0.025em -0.05em 0 var(--secondary-color), 0.025em 0.05em 0 #ff00ff;
+            animation: glitch 725ms infinite;
+        }
+        .glitch:hover {
+            animation-play-state: running;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            animation: glitch-1 500ms infinite;
+            color: var(--primary-color);
+            z-index: -1;
+        }
+        .glitch::after {
+            animation: glitch-2 500ms infinite;
+            color: var(--secondary-color);
+            z-index: -2;
+        }
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0.05em 0 0 var(--primary-color), -0.025em -0.05em 0 var(--secondary-color), 0.025em 0.05em 0 #ff00ff; }
+            15% { text-shadow: 0.05em 0 0 var(--secondary-color), -0.025em -0.05em 0 var(--primary-color), 0.025em 0.05em 0 #ff00ff; }
+        }
+        @keyframes glitch-1 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            20% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(50% 0 20% 0); transform: translate(2px, -2px); }
+            60% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, 1px); }
+            80% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -1px); }
+        }
+        @keyframes glitch-2 {
+            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, 1px); }
+            60% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -2px); }
+            80% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, 2px); }
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--bg-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+        }
+
+        /* --- HEADER --- */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+        }
+        .nav-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-color);
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        /* --- HERO SECTION (PARTICLE CANVAS) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(to bottom, var(--bg-color), var(--bg-gradient-end));
+        }
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-content {
+            z-index: 1;
+        }
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            color: var(--text-light);
+        }
+
+        /* --- 3D TILT CARDS --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            perspective: 1000px;
+        }
+        .tilt-card {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .tilt-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 245, 255, 0.25);
+        }
+        .tilt-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        .tilt-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-stagger-1 { transition-delay: 0.1s; }
+        .reveal-stagger-2 { transition-delay: 0.2s; }
+        .reveal-stagger-3 { transition-delay: 0.3s; }
+
+        /* --- PORTFOLIO --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 2rem;
+            text-align: center;
+        }
+        .portfolio-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+            filter: blur(2px);
+        }
+
+        /* --- CONTACT --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
+        .contact-form h2, .contact-info h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 0;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .contact-form textarea {
+            resize: none;
+        }
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background-color: var(--bg-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 3rem 0 1rem 0;
+        }
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+        .footer-bottom {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .section-title { font-size: 3rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-wrapper { grid-template-columns: 1fr; gap: 50px; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+            }
+            .nav-menu.active { left: 0; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .container { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- =================== HEADER =================== -->
+    <header class="header">
+        <div class="container">
+            <a href="#home" class="logo">Nexus<span>Core</span></a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#services">Layanan</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- =================== HERO SECTION =================== -->
+        <section id="home" class="hero">
+            <canvas id="particle-canvas"></canvas>
+            <div class="hero-content reveal">
+                <h1 class="glitch" data-text="Architects of the Digital Frontier">Architects of the Digital Frontier</h1>
+                <p>Kami tidak hanya mengikuti masa depan. Kami membangunnya. Selamat datang di Nexus Core.</p>
+                <a href="#portfolio" class="btn">Jelajahi Karya Kami</a>
+            </div>
+        </section>
+
+        <!-- =================== SERVICES SECTION =================== -->
+        <section id="services" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Kemampuan Inti Kami</h2>
+                <div class="services-grid">
+                    <div class="tilt-card reveal reveal-stagger-1">
+                        <div class="icon"><i class="fas fa-brain"></i></div>
+                        <h3>AI Integration</h3>
+                        <p>Mengintegrasikan kecerdasan buatan untuk menciptakan aplikasi yang belajar, beradaptasi, dan berevolusi.</p>
+                    </div>
+                    <div class="tilt-card reveal reveal-stagger-2">
+                        <div class="icon"><i class="fas fa-cube"></i></div>
+                        <h3>Immersive Experiences</h3>
+                        <p>Membangun dunia digital dengan AR/VR yang mendalam dan interaktif untuk pengalaman pengguna yang tak terlupakan.</p>
+                    </div>
+                    <div class="tilt-card reveal reveal-stagger-3">
+                        <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Quantum-Grade Security</h3>
+                        <p>Menerapkan protokol keamanan paling mutakhir untuk melindungi data dan privasi pengguna di era digital.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== PORTFOLIO SECTION =================== -->
+        <section id="portfolio" class="section-padding">
+            <div class="container">
+                <h2 class="section-title reveal">Proyek Terdepan</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <h3>Project Chimera</h3>
+                            <p>Sistem AI Prediktif untuk Logistik Global</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=2070&auto=format&fit=crop" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <h3>Aetherium</h3>
+                            <p>Platform Realitas Virtual untuk Kolaborasi Jarak Jauh</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item reveal">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <h3>Helios</h3>
+                            <p>Dashboard Energi Terbarukan Berbasis IoT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== CONTACT SECTION =================== -->
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-form reveal">
+                        <h2>Hubungi Nexus Core</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Nama Lengkap" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email Perusahaan" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Visi Anda" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Kirim Pesan</button>
+                        </form>
+                    </div>
+                    <div class="contact-info reveal">
+                        <h2>Informasi Kontak</h2>
+                        <p><strong>Markas Besar:</strong><br> Nexus Tower, Lantai 99, Jakarta</p>
+                        <p><strong>Link Aman:</strong><br> <a href="mailto:secure@nexuscore.io">secure@nexuscore.io</a></p>
+                        <p><strong>Kanal Komunikasi:</strong><br> <a href="tel:+62199999999">+62 21 9999 9999</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =================== FOOTER =================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nexus Core. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- MOBILE NAVIGATION ---
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // --- PARTICLE CANVAS ---
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            let particlesArray = [];
+            const numberOfParticles = 100;
+            const mouse = { x: null, y: null, radius: 150 };
+
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    this.color = color;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                    if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 10;
+                        if (mouse.x > this.x && this.x > this.size * 10) this.x -= 10;
+                        if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 10;
+                        if (mouse.y > this.y && this.y > this.size * 10) this.y -= 10;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            function init() {
+                particlesArray = [];
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.4) - 0.2;
+                    let directionY = (Math.random() * 0.4) - 0.2;
+                    let color = '#00f5ff';
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                }
+            }
+
+            function connect() {
+                let opacityValue = 1;
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                            + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                            opacityValue = 1 - (distance / 20000);
+                            ctx.strokeStyle = `rgba(0, 245, 255, ${opacityValue})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, innerWidth, innerHeight);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connect();
+            }
+            init();
+            animate();
+            window.addEventListener('resize', () => {
+                canvas.width = innerWidth;
+                canvas.height = innerHeight;
+                init();
+            });
+
+            // --- 3D TILT CARDS ---
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                });
+            });
+
+            // --- SCROLL REVEAL (using Intersection Observer) ---
+            const reveals = document.querySelectorAll('.reveal');
+            const revealOnScroll = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(element => revealOnScroll.observe(element));
+
+            // --- CONTACT FORM ---
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Pesan Anda telah diterima oleh Nexus Core. Kami akan segera menjalin kontak.');
+                contactForm.reset();
+            });
+
+        });
+    </script>
+</body>
+</html>

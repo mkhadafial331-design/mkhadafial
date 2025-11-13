@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard Studio - We Don't Follow Trends. We Create Them.</title>
+    <meta name="description" content="Vanguard Studio adalah lab kreatif digital. Kami menciptakan pengalaman web yang berani, avant-garde, dan tak terlupakan untuk merek-merek pemberani.">
+    
+    <!-- Google Fonts: Bebas Neue & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & GLOBAL STYLES (THEME: NEO-BRUTALIST) --- */
+        :root {
+            --bg-color: #F7F7F7;
+            --black: #000000;
+            --accent-1: #FFD700; /* Mustard */
+            --accent-2: #FF006E; /* Hot Pink */
+            --font-heading: 'Bebas Neue', cursive;
+            --font-body: 'Space Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--black);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.2s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: var(--accent-1);
+            border-radius: 25%;
+            border-color: var(--accent-1);
+        }
+        .cursor.link-hover {
+            transform: translate(-50%, -50%) rotate(45deg) scale(0.8);
+            background-color: var(--accent-2);
+            border-radius: 0;
+            border-color: var(--accent-2);
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--black);
+            color: var(--bg-color);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            border: 5px solid var(--black);
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+        .btn:hover {
+            background-color: var(--accent-2);
+            border-color: var(--accent-2);
+            transform: translate(-5px, -5px);
+            box-shadow: 5px 5px 0 var(--black);
+        }
+
+        /* --- HEADER --- */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            background-color: var(--bg-color);
+            border-bottom: 5px solid var(--black);
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--black);
+            text-decoration: none;
+            cursor: none;
+        }
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-menu a {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: none;
+            position: relative;
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--accent-1);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .hamburger { display: none; }
+
+        /* --- HERO SECTION (ASYMMETRICAL) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 0;
+        }
+        .hero-content {
+            max-width: 70%;
+        }
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 9rem);
+            margin-bottom: 1rem;
+            transform: rotate(-2deg);
+        }
+        .hero-title .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px) rotate(10deg);
+            animation: letterReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes letterReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-left: 1rem;
+            border-left: 5px solid var(--accent-2);
+            padding-left: 1rem;
+        }
+        .hero-image {
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 50%;
+            height: 80%;
+            border: 10px solid var(--black);
+            background-image: url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        /* --- SECTION STYLES --- */
+        .section-padding {
+            padding: 150px 0;
+            border-top: 5px solid var(--black);
+        }
+        .section-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        /* --- SERVICES (OVERLAPPING CARDS) --- */
+        .services-grid {
+            position: relative;
+            height: 600px;
+        }
+        .service-card {
+            position: absolute;
+            width: 350px;
+            padding: 2.5rem;
+            border: 5px solid var(--black);
+            background-color: var(--bg-color);
+            transition: all 0.4s ease;
+        }
+        .service-card:nth-child(1) {
+            top: 0;
+            left: 10%;
+            background-color: var(--accent-1);
+            z-index: 3;
+        }
+        .service-card:nth-child(2) {
+            top: 150px;
+            right: 10%;
+            background-color: var(--accent-2);
+            z-index: 2;
+        }
+        .service-card:nth-child(3) {
+            bottom: 0;
+            left: 35%;
+            z-index: 1;
+        }
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            z-index: 10;
+        }
+        .service-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .service-card p {
+            font-weight: 700;
+        }
+
+        /* --- PORTFOLIO (SWIPE REVEAL) --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border: 5px solid var(--black);
+            cursor: none;
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--black);
+            color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding: 2rem;
+            text-align: center;
+        }
+        .portfolio-overlay h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateX(0);
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- CONTACT (BRUTALIST FORM) --- */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+        .contact-form h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            transform: rotate(-1deg);
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 5px solid var(--black);
+            padding: 10px 0;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-1);
+        }
+        .contact-form textarea {
+            resize: none;
+        }
+        .contact-info {
+            border: 5px solid var(--accent-2);
+            padding: 3rem;
+            background-color: var(--accent-2);
+            color: var(--black);
+        }
+        .contact-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .contact-info p {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background-color: var(--black);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 10px solid var(--accent-1);
+        }
+        .social-icons a {
+            color: var(--bg-color);
+            font-size: 2rem;
+            margin: 0 20px;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+        .social-icons a:hover {
+            color: var(--accent-1);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .hero-image { display: none; }
+            .hero-content { max-width: 100%; }
+            .services-grid { height: auto; position: static; }
+            .service-card { position: static; width: 100%; margin-bottom: 2rem; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 90px;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                border-bottom: 5px solid var(--black);
+            }
+            .nav-menu.active { left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- =================== HEADER =================== -->
+    <header class="header">
+        <div class="container">
+            <a href="#home" class="logo">VANGUARD</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#services">Layanan</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- =================== HERO SECTION =================== -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="letter" style="animation-delay: 0.05s">W</span><span class="letter" style="animation-delay: 0.1s">E</span><span class="letter" style="animation-delay: 0.15s"> </span><span class="letter" style="animation-delay: 0.2s">D</span><span class="letter" style="animation-delay: 0.25s">O</span><span class="letter" style="animation-delay: 0.3s">N</span><span class="letter" style="animation-delay: 0.35s">'</span><span class="letter" style="animation-delay: 0.4s">T</span><span class="letter" style="animation-delay: 0.45s"> </span><span class="letter" style="animation-delay: 0.5s">F</span><span class="letter" style="animation-delay: 0.55s">O</span><span class="letter" style="animation-delay: 0.6s">L</span><span class="letter" style="animation-delay: 0.65s">L</span><span class="letter" style="animation-delay: 0.7s">O</span><span class="letter" style="animation-delay: 0.75s">W</span><span class="letter" style="animation-delay: 0.8s">.</span>
+                </h1>
+                <p class="hero-subtitle">Kami menciptakan tren, bukan mengejarnya. Setiap piksel adalah pernyataan.</p>
+                <a href="#portfolio" class="btn">LIHAT KARYA KAMI</a>
+            </div>
+            <div class="hero-image"></div>
+        </section>
+
+        <!-- =================== SERVICES SECTION =================== -->
+        <section id="services" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Layanan Kami</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Brutal Design</h3>
+                        <p>Desain yang berani, tegas, dan tidak bisa diabaikan. Kami menciptakan identitas visual yang menusuk.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Creative Dev</h3>
+                        <p>Kode bukan hanya fungsi, tapi seni. Kami membangun pengalaman web yang imersif dan interaktif.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Digital Art</h3>
+                        <p>Mendorong batasan antara teknologi dan seni untuk menciptakan kampanye digital yang tak terlupakan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== PORTFOLIO SECTION =================== -->
+        <section id="portfolio" class="section-padding">
+            <div class="container">
+                <h2 class="section-title">Portfolio</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070&auto=format&fit=crop" alt="Project 1">
+                        <div class="portfolio-overlay">
+                            <h3>FASHION X</h3>
+                            <p>Kampanye Musim Semi/panas</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2070&auto=format&fit=crop" alt="Project 2">
+                        <div class="portfolio-overlay">
+                            <h3>TECH FEST</h3>
+                            <p>Identitas Visual Festival</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=2070&auto=format&fit=crop" alt="Project 3">
+                        <div class="portfolio-overlay">
+                            <h3>ARTIST HUB</h3>
+                            <p>Platform Portfolio Digital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================== CONTACT SECTION =================== -->
+        <section id="contact" class="section-padding">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-form">
+                        <h2>HUBUNGI KAMI</h2>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Nama Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Ide Gila Anda" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">KIRIM</button>
+                        </form>
+                    </div>
+                    <div class="contact-info">
+                        <h3>INFO</h3>
+                        <p>email: hello@vanguard.studio</p>
+                        <p>tel: +62 21 888 999</p>
+                        <p>alamat: Jl. Seni No. 7, Jakarta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =================== FOOTER =================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- CUSTOM CURSOR ---
+            const cursor = document.querySelector('.cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            const hoverTargets = document.querySelectorAll('a, button, .btn, .portfolio-item');
+            const linkTargets = document.querySelectorAll('a:not(.btn)');
+            hoverTargets.forEach(target => {
+                target.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                target.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+            linkTargets.forEach(target => {
+                target.addEventListener('mouseenter', () => cursor.classList.add('link-hover'));
+                target.addEventListener('mouseleave', () => cursor.classList.remove('link-hover'));
+            });
+
+            // --- MOBILE NAVIGATION ---
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            hamburger?.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger?.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            // --- CONTACT FORM ---
+            const contactForm = document.getElementById('contactForm');
+            contactForm?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Pesan Anda telah diterima. Tim Vanguard akan segera merespons.');
+                contactForm.reset();
+            });
+
+        });
+    </script>
+</body>
+</html>
